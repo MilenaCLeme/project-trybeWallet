@@ -36,7 +36,21 @@ input {
   border-radius: 10%;
 }
 
-button {
-  margin: 0 0 0 150px;
-  padding: 5px 10px 5px 10px ;
+.divDoBotao {
+  margin: 5px 5px 5px 100px;
+  padding: 10px 10px 5px 30px;
+}
+
+.botao {
+  width: 150px;
+  height: 25px;
+  background-color: cadetblue;
+  border-radius: 15%;
+  border-color: cornflowerblue;
+}
+
+.letra {
+  text-decoration: none;
+  color: antiquewhite;
+  text-align: center;
 }
