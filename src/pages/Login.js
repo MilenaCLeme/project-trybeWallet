@@ -65,7 +65,7 @@ class Login extends React.Component {
     const { email, senha, validar } = this.state;
     const { addEmailState } = this.props;
     const link = <Link to="/carteira" className="letra">Entrar</Link>;
-    const entra = <>Entra</>;
+    const entra = <p>Entrar</p>;
     return (
       <div>
         <div className="iniciou colordatabela">
@@ -76,7 +76,7 @@ class Login extends React.Component {
                 type="text"
                 id="email"
                 name="email"
-                testid="email-input"
+                data-testid="email-input"
                 value={ email }
                 onChange={ this.handerChangeEmail }
               />
@@ -95,7 +95,7 @@ class Login extends React.Component {
           </form>
           <div className="divDoBotao">
             <button
-              type="submit"
+              type="button"
               className="botao"
               disabled={ validar }
               onClick={ () => { addEmailState(email); } }
