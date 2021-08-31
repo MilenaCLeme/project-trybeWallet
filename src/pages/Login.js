@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addEmailState as addStateGlobal } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -59,6 +63,9 @@ class Login extends React.Component {
 
   render() {
     const { email, senha, validar } = this.state;
+    const { addEmailState } = this.props;
+    const link = <Link to="/carteira" className="letra">Entrar</Link>;
+    const entra = <>Entra</>;
     return (
       <div>
         <div className="iniciou colordatabela">
@@ -85,19 +92,29 @@ class Login extends React.Component {
                 onChange={ this.handerChangeSenha }
               />
             </label>
-            <div>
-              <button
-                type="submit"
-                disabled={ validar }
-              >
-                Entrar
-              </button>
-            </div>
           </form>
+          <div className="divDoBotao">
+            <button
+              type="submit"
+              className="botao"
+              disabled={ validar }
+              onClick={ () => { addEmailState(email); } }
+            >
+              { validar === '' ? link : entra }
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  addEmailState: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addEmailState: (email) => dispatch(addStateGlobal(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
