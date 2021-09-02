@@ -1,50 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import TabelaTr from './TabelaTr';
 
 class Tabela extends React.Component {
   render() {
     const { info } = this.props;
+    const NovoArray = [];
+    info.forEach(({ value, description, currency, tag, method, exchangeRates }) => {
+      const obj = {
+        value,
+        description,
+        tag,
+        method,
+      };
+      const exchange = exchangeRates[currency];
+      const { ask, name } = exchange;
+      const nome = name.split('/')[0];
+      obj.ask = Number(ask).toFixed(2);
+      obj.cod = nome;
+      const total = value * Number(ask);
+      obj.vtotal = total.toFixed(2);
+      NovoArray.push(obj);
+    });
     return (
-      <div className="tabelaladoalado">
-        <div>
-          <h4>Descrição</h4>
-          {info
-            .map((ele) => <p key={ ele.id }>{ ele.description }</p>) }
-        </div>
-        <div>
-          <h4>Tag</h4>
-          {info.map((ele) => <p key={ ele.id }>{ele.tag}</p>)}
-        </div>
-        <div>
-          <h4>Método de pagamento</h4>
-          {info.map((ele) => <p key={ ele.id }>{ ele.method }</p>)}
-        </div>
-        <div>
-          <h4>Valor</h4>
-          {info.map((ele) => <p key={ ele.id }>{ ele.value }</p>)}
-        </div>
-        <div>
-          <h4>Câmbio Utilizado</h4>
-          {info.map((ele) => <p key={ ele.id }>oi</p>)}
-        </div>
-        <div>
-          <h4>Valor convertido</h4>
-          {info.map((ele) => <p key={ ele.id }>BR</p>)}
-        </div>
-        <div>
-          <h4>Moeda de conversão</h4>
-          {info.map((ele) => <p key={ ele.id }>Real</p>)}
-        </div>
-        <div>
-          <h4>Editar/Excluir</h4>
-        </div>
-      </div>
+      <table>
+        <tr>
+          <th>Descrição</th>
+          <th>Tag</th>
+          <th>Método de pagamento</th>
+          <th>Valor</th>
+          <th>Moeda</th>
+          <th>Câmbio utilizado</th>
+          <th>Valor convertido</th>
+          <th>Moeda de conversão</th>
+          <th>Editar/Excluir</th>
+        </tr>
+        {NovoArray.map((elemento, index) => <TabelaTr obj={ elemento } key={ index } />)}
+      </table>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  info: state.wallet.expenses,
+});
 
 Tabela.propTypes = {
   info: PropTypes.arrayOf.isRequired,
 };
 
-export default Tabela;
+export default connect(mapStateToProps, null)(Tabela);

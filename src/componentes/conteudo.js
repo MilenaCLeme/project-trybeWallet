@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Inputes from './Inputes';
 
 class Conteudo extends React.Component {
   render() {
@@ -7,33 +8,35 @@ class Conteudo extends React.Component {
     const numero = 3;
     const elementos = moedas.filter((item) => item.length === numero);
     return (
-      <>
-        <label htmlFor="valor">
-          Valor:
-          <input type="number" name="valor" value={ valor } onChange={ onChange } />
-        </label>
-        <label htmlFor="descricao">
-          Descrição:
-          <input type="text" value={ descricao } name="descricao" onChange={ onChange } />
-        </label>
-        <label htmlFor="moeda">
+      <form>
+        <Inputes
+          valor={ valor }
+          onChange={ onChange }
+          descricao={ descricao }
+        />
+        <label htmlFor="currency">
           Moeda:
-          <select onChange={ onChange } name="moeda" value={ moeda }>
+          <select onChange={ onChange } id="currency" name="currency" value={ moeda }>
             {elementos
               .map((ele, index) => <option value={ ele } key={ index }>{ ele }</option>)}
           </select>
         </label>
-        <label htmlFor="pagamento">
+        <label htmlFor="method">
           Método de pagamento:
-          <select value={ pagamento } onChange={ onChange } name="pagamento">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="cartão de crédito">Cartão de Crédito</option>
-            <option value="cartão de débito">Cartão de débito</option>
+          <select
+            value={ pagamento }
+            id="method"
+            onChange={ onChange }
+            name="method"
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de Crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag:
-          <select value={ tag } onChange={ onChange } name="tag">
+          <select value={ tag } id="tag" onChange={ onChange } name="tag">
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -41,7 +44,7 @@ class Conteudo extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-      </>
+      </form>
     );
   }
 }

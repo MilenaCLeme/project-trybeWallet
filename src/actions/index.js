@@ -31,7 +31,7 @@ export function Adicionar(obj) {
     const data = await resposta.json();
     const { expenses } = getState().wallet;
     const addObj = { ...obj, id: expenses.length, exchangeRates: data };
-    const novoArray = expenses;
+    const novoArray = [...expenses];
     novoArray.push(addObj);
     dispath(addExpense(novoArray));
   };

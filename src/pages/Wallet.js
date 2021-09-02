@@ -11,14 +11,11 @@ class Wallet extends React.Component {
     super();
 
     this.state = {
-      valor: 0,
-      descricao: '',
-      pagamento: 'Dinheiro',
+      value: '',
+      description: '',
+      method: 'Dinheiro',
       tag: 'Alimentação',
-      moeda: 'USD',
-      exchangeRates: {},
-      armazenar: [],
-      total: 0,
+      currency: 'USD',
     };
 
     this.handerChange = this.handerChange.bind(this);
@@ -35,97 +32,38 @@ class Wallet extends React.Component {
 
   handerChange({ target }) {
     const nome = target.name;
-    const valor = nome === 'valor' ? Number(target.value) : target.value;
+    const valor = target.value;
     this.setState({
       [nome]: valor,
     });
   }
 
-  async chamarApi(moeda) {
-    try {
-      const fetchAPI = `https://economia.awesomeapi.com.br/${moeda}`;
-      const responseAPI = await fetch(fetchAPI);
-      const data = await responseAPI.json();
-      console.log(data);
-      const nomeex = 'exchangeRates';
-      this.setState({
-        [nomeex]: data,
-      });
-      this.armazenar();
-    } catch (error) {
-      return error;
-    }
-  }
-
-  altera() {
-    const { valor, descricao, tag, moeda, pagamento } = this.state;
-    const sei = tag;
-    const { adicionou } = this.props;
-    const objArm = {
-      value: valor,
-      description: descricao,
-      currency: moeda,
-      method: pagamento,
-      tag: sei,
-    };
-    adicionou(objArm);
-  }
-
-  armazenar() {
-    const { armazenar, valor, descricao, tag, moeda, pagamento } = this.state;
-    const x = tag;
-    const box = [...armazenar];
-    const objArm = {
-      value: valor,
-      description: descricao,
-      currency: moeda,
-      method: pagamento,
-      tag: x,
-    };
-    box.push(objArm);
-    this.setState({
-      armazenar: box,
-    });
-    this.valorTotal(valor);
-  }
-
-  valorTotal(valou) {
-    const { exchangeRates, total } = this.state;
-    const iniciou = total;
-    const comeco = valou * Number(exchangeRates[0].ask);
-    const totalValor = iniciou + comeco;
-    this.setState({
-      total: totalValor,
-    });
-  }
-
   render() {
-    const { email, moedas, info } = this.props;
-    const { valor, descricao, pagamento, tag, total, moeda } = this.state;
+    const { email, moedas, info, adicionou } = this.props;
+    const { value, description, currency, tag, method } = this.state;
     return (
       <div>
-        <Header email={ email } valor={ total } />
-        <form className="formulario">
+        <Header email={ email } expense={ info } />
+        <div className="formulario">
           <Conteudo
-            valor={ valor }
-            descricao={ descricao }
-            pagamento={ pagamento }
+            valor={ value }
+            descricao={ description }
+            pagamento={ method }
             tag={ tag }
             onChange={ this.handerChange }
             moedas={ moedas }
-            moeda={ moeda }
+            moeda={ currency }
           />
           <button
             type="button"
             onClick={ () => {
-              this.altera();
-              this.chamarApi(moeda);
+              adicionou(this.state);
             } }
           >
             Adicionar despesa
           </button>
-        </form>
-        <Tabela info={ info } />
+        </div>
+        <Tabela />
       </div>
     );
   }

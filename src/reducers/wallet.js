@@ -3,6 +3,7 @@ import { GET_PICTURE, ADD_EXPENSE } from '../actions/index';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  total: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
