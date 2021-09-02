@@ -64,28 +64,28 @@ class Login extends React.Component {
   render() {
     const { email, senha, validar } = this.state;
     const { addEmailState } = this.props;
-    const link = <Link to="/carteira" className="letra">Entrar</Link>;
-    const entra = <p>Entrar</p>;
     return (
       <div>
         <div className="iniciou colordatabela">
           <form className="caixainputs">
-            <label htmlFor="email">
+            <label className="labellogin" htmlFor="email">
               E-mail:
               <input
                 type="text"
                 id="email"
+                className="inputlogin"
                 name="email"
                 data-testid="email-input"
                 value={ email }
                 onChange={ this.handerChangeEmail }
               />
             </label>
-            <label htmlFor="senha">
+            <label className="labellogin" htmlFor="senha">
               Senha:
               <input
                 type="password"
                 id="senha"
+                className="inputlogin"
                 data-testid="password-input"
                 name="senha"
                 value={ senha }
@@ -94,14 +94,16 @@ class Login extends React.Component {
             </label>
           </form>
           <div className="divDoBotao">
-            <button
-              type="button"
-              className="botao"
-              disabled={ validar }
-              onClick={ () => { addEmailState(email); } }
-            >
-              { validar === '' ? link : entra }
-            </button>
+            <Link to="/carteira">
+              <button
+                type="button"
+                className="botao letra"
+                disabled={ validar }
+                onClick={ () => { addEmailState(email); } }
+              >
+                Entrar
+              </button>
+            </Link>
           </div>
         </div>
       </div>
