@@ -5,14 +5,16 @@ import TabelaTr from './TabelaTr';
 
 class Tabela extends React.Component {
   render() {
-    const { info } = this.props;
+    const { info, editar } = this.props;
     const NovoArray = [];
-    info.forEach(({ value, description, currency, tag, method, exchangeRates }) => {
+    info.forEach(({ value, description, currency, tag, method, exchangeRates, id }) => {
       const obj = {
         value,
         description,
         tag,
         method,
+        id,
+        currency,
       };
       const exchange = exchangeRates[currency];
       const { ask, name } = exchange;
@@ -36,7 +38,11 @@ class Tabela extends React.Component {
           <th>Moeda de conversão</th>
           <th>Editar/Excluir</th>
         </tr>
-        {NovoArray.map((elemento, index) => <TabelaTr obj={ elemento } key={ index } />)}
+        {
+          NovoArray.map((elemento, index) => (
+            <TabelaTr obj={ elemento } key={ index } editar={ editar } />
+          ))
+        }
       </table>
     );
   }
@@ -48,6 +54,7 @@ const mapStateToProps = (state) => ({
 
 Tabela.propTypes = {
   info: PropTypes.arrayOf.isRequired,
+  editar: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Tabela);

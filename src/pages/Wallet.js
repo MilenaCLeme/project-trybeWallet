@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../componentes/header';
 import Conteudo from '../componentes/conteudo';
-import { Adicionar, fetchApi } from '../actions/index';
+import { Adicionar, fetchApi, alterar } from '../actions/index';
 import Tabela from '../componentes/Tabela';
 
 class Wallet extends React.Component {
@@ -11,6 +11,7 @@ class Wallet extends React.Component {
     super();
 
     this.state = {
+      id: false,
       value: '',
       description: '',
       method: 'Dinheiro',
@@ -19,6 +20,8 @@ class Wallet extends React.Component {
     };
 
     this.handerChange = this.handerChange.bind(this);
+    this.verificaSeExisteId = this.verificaSeExisteId.bind(this);
+    this.editarInfoNoState = this.editarInfoNoState.bind(this);
   }
 
   componentDidMount() {
@@ -38,9 +41,46 @@ class Wallet extends React.Component {
     });
   }
 
+  editarInfoNoState({ currency, tag, id, method, value, description }) {
+    this.setState({
+      currency,
+      tag,
+      method,
+      value,
+      description,
+      id,
+    });
+  }
+
+  verificaSeExisteId() {
+    const { adicionou, alterou } = this.props;
+    const { id, value, currency, tag, method, description } = this.state;
+    const tabela = {
+      value,
+      currency,
+      tag,
+      method,
+      description,
+    };
+    if (id === false) {
+      adicionou(tabela);
+    } else {
+      alterou(tabela, id);
+    }
+
+    this.setState({
+      id: false,
+      value: '',
+      description: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      currency: 'USD',
+    });
+  }
+
   render() {
-    const { email, moedas, info, adicionou } = this.props;
-    const { value, description, currency, tag, method } = this.state;
+    const { email, moedas, info } = this.props;
+    const { value, description, currency, tag, method, id } = this.state;
     return (
       <div>
         <Header email={ email } expense={ info } />
@@ -57,13 +97,13 @@ class Wallet extends React.Component {
           <button
             type="button"
             onClick={ () => {
-              adicionou(this.state);
+              this.verificaSeExisteId();
             } }
           >
-            Adicionar despesa
+            { id === false ? 'Adicionar despesa' : 'Editar despesa' }
           </button>
         </div>
-        <Tabela />
+        <Tabela editar={ this.editarInfoNoState } />
       </div>
     );
   }
@@ -78,6 +118,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getMoedas: () => dispatch(fetchApi()),
   adicionou: (obj) => dispatch(Adicionar(obj)),
+  alterou: (obj, id) => dispatch(alterar(obj, id)),
 });
 
 Wallet.propTypes = {
@@ -86,6 +127,7 @@ Wallet.propTypes = {
   getMoedas: PropTypes.func.isRequired,
   moedas: PropTypes.arrayOf.isRequired,
   info: PropTypes.arrayOf.isRequired,
+  alterou: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

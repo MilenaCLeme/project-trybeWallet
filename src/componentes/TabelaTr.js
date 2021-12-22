@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deletar as deletarPeloId } from '../actions/index';
 
 class TabelaTr extends React.Component {
   render() {
-    const { obj } = this.props;
-    const { value, description, tag, method, ask, cod, vtotal } = obj;
+    const { obj, deletar, editar } = this.props;
+    const { value, description, tag, method, ask, cod, vtotal, id } = obj;
     return (
       <tr>
         <td>{ description }</td>
@@ -16,7 +18,20 @@ class TabelaTr extends React.Component {
         <td>{ vtotal }</td>
         <td>Real</td>
         <td>
-          <button type="submit" data-testid="delete-btn">Deletar</button>
+          <button
+            type="button"
+            data-testid="edit-btn"
+            onClick={ () => { editar(obj); } }
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => { deletar(id); } }
+          >
+            Deletar
+          </button>
         </td>
       </tr>
     );
@@ -25,6 +40,12 @@ class TabelaTr extends React.Component {
 
 TabelaTr.propTypes = {
   obj: PropTypes.arrayOf.isRequired,
+  deletar: PropTypes.func.isRequired,
+  editar: PropTypes.func.isRequired,
 };
 
-export default TabelaTr;
+const mapDispatchToProps = (dispatch) => ({
+  deletar: (id) => dispatch(deletarPeloId(id)),
+});
+
+export default connect(null, mapDispatchToProps)(TabelaTr);

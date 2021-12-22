@@ -23,7 +23,6 @@ class Header extends React.Component {
           <p>Email:</p>
           <p data-testid="email-field">{email}</p>
         </div>
-        <img src="https://image.freepik.com/vetores-gratis/carteira-e-desenho-animado-do-dinheiro_138676-2086.jpg" alt="carteira" />
       </div>
     );
   }
