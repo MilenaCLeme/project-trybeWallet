@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { AiFillWallet } from 'react-icons/ai';
 
 class Header extends React.Component {
   render() {
@@ -13,15 +14,20 @@ class Header extends React.Component {
       valortotal.total += total;
     });
     return (
-      <div className="iniciouheader">
-        <div className="divHearder">
-          <p> Despesas: R$</p>
-          <p data-testid="total-field">{valortotal.total.toFixed(2)}</p>
-          <p data-testid="header-currency-field">BRL</p>
+      <div className="header">
+        <div className="log">
+          <AiFillWallet className="cor-1" />
+          <p className="letra-1">Wallet Money</p>
         </div>
-        <div className="divHearder one">
-          <p>Email:</p>
-          <p data-testid="email-field">{email}</p>
+        <div className="despesa">
+          <div className="email-header">
+            <p data-testid="email-field">{`Email:  ${email}`}</p>
+          </div>
+          <div className="despesas-1">
+            <p> Despesas:</p>
+            <p data-testid="total-field">{`R$ ${valortotal.total.toFixed(2)}`}</p>
+            <p data-testid="header-currency-field">BRL</p>
+          </div>
         </div>
       </div>
     );

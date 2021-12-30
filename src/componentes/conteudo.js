@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Inputes from './Inputes';
+import Select from './Select';
 
 class Conteudo extends React.Component {
   render() {
@@ -8,35 +9,40 @@ class Conteudo extends React.Component {
     const numero = 3;
     const elementos = moedas.filter((item) => item.length === numero);
     return (
-      <form>
+      <form className="form-1">
         <Inputes
           valor={ valor }
           onChange={ onChange }
           descricao={ descricao }
         />
-        <label htmlFor="currency">
-          Moeda:
-          <select onChange={ onChange } id="currency" name="currency" value={ moeda }>
-            {elementos
-              .map((ele, index) => <option value={ ele } key={ index }>{ ele }</option>)}
-          </select>
-        </label>
-        <label htmlFor="method">
+        <Select
+          elementos={ elementos }
+          moeda={ moeda }
+          onChange={ onChange }
+        />
+        <label htmlFor="method" className="form-label" id="label-m">
           Método de pagamento:
           <select
             value={ pagamento }
             id="method"
             onChange={ onChange }
             name="method"
+            className="form-control"
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de Crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="tag">
+        <label htmlFor="tag" id="label-t">
           Tag:
-          <select value={ tag } id="tag" onChange={ onChange } name="tag">
+          <select
+            value={ tag }
+            id="tag"
+            onChange={ onChange }
+            name="tag"
+            className="form-control"
+          >
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>

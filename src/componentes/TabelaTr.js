@@ -22,6 +22,7 @@ class TabelaTr extends React.Component {
             type="button"
             data-testid="edit-btn"
             onClick={ () => { editar(obj); } }
+            className="btn btn-warning"
           >
             Editar
           </button>
@@ -29,6 +30,7 @@ class TabelaTr extends React.Component {
             type="button"
             data-testid="delete-btn"
             onClick={ () => { deletar(id); } }
+            className="btn btn-danger"
           >
             Deletar
           </button>

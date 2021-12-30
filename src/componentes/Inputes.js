@@ -5,8 +5,8 @@ class Inputes extends React.Component {
   render() {
     const { valor, onChange, descricao } = this.props;
     return (
-      <>
-        <label htmlFor="value">
+      <div>
+        <label htmlFor="value" className="form-label" id="label-v">
           Valor:
           <input
             type="number"
@@ -14,9 +14,11 @@ class Inputes extends React.Component {
             id="value"
             value={ valor }
             onChange={ onChange }
+            min={ 0 }
+            className="form-control"
           />
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="descricao" className="form-label" id="label-d">
           Descrição:
           <input
             type="text"
@@ -24,9 +26,10 @@ class Inputes extends React.Component {
             value={ descricao }
             name="description"
             onChange={ onChange }
+            className="form-control"
           />
         </label>
-      </>
+      </div>
     );
   }
 }

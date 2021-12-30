@@ -26,17 +26,17 @@ class Tabela extends React.Component {
       NovoArray.push(obj);
     });
     return (
-      <table>
+      <table className="table">
         <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Tag</th>
+          <th scope="col">Método de pagamento</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Moeda</th>
+          <th scope="col">Câmbio utilizado</th>
+          <th scope="col">Valor convertido</th>
+          <th scope="col">Moeda de conversão</th>
+          <th scope="col">Editar/Excluir</th>
         </tr>
         {
           NovoArray.map((elemento, index) => (

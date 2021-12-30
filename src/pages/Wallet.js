@@ -94,14 +94,17 @@ class Wallet extends React.Component {
             moedas={ moedas }
             moeda={ currency }
           />
-          <button
-            type="button"
-            onClick={ () => {
-              this.verificaSeExisteId();
-            } }
-          >
-            { id === false ? 'Adicionar despesa' : 'Editar despesa' }
-          </button>
+          <div className="meio">
+            <button
+              type="button"
+              onClick={ () => {
+                this.verificaSeExisteId();
+              } }
+              className={ id === false ? 'btn btn-outline-primary' : 'btn btn-warning' }
+            >
+              { id === false ? 'Adicionar despesa' : 'Editar despesa' }
+            </button>
+          </div>
         </div>
         <Tabela editar={ this.editarInfoNoState } />
       </div>

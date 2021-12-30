@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AiFillWallet } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addEmailState as addStateGlobal } from '../actions/index';
@@ -65,46 +66,48 @@ class Login extends React.Component {
     const { email, senha, validar } = this.state;
     const { addEmailState } = this.props;
     return (
-      <div>
-        <div className="iniciou colordatabela">
-          <form className="caixainputs">
-            <label className="labellogin" htmlFor="email">
-              E-mail:
-              <input
-                type="text"
-                id="email"
-                className="inputlogin"
-                name="email"
-                data-testid="email-input"
-                value={ email }
-                onChange={ this.handerChangeEmail }
-              />
-            </label>
-            <label className="labellogin" htmlFor="senha">
-              Senha:
-              <input
-                type="password"
-                id="senha"
-                className="inputlogin"
-                data-testid="password-input"
-                name="senha"
-                value={ senha }
-                onChange={ this.handerChangeSenha }
-              />
-            </label>
-          </form>
-          <div className="divDoBotao">
-            <Link to="/carteira">
-              <button
-                type="button"
-                className="botao letra"
-                disabled={ validar }
-                onClick={ () => { addEmailState(email); } }
-              >
-                Entrar
-              </button>
-            </Link>
-          </div>
+      <div className="formado flex-1">
+        <div className="imagem">
+          <p className="letra">Wallet Money</p>
+          <AiFillWallet className="cor" />
+        </div>
+        <form className="flex-2">
+          <label htmlFor="email" className="form-label" id="label-e">
+            E-mail:
+            <input
+              type="text"
+              id="email"
+              name="email"
+              className="form-control form-control-lg"
+              data-testid="email-input"
+              value={ email }
+              onChange={ this.handerChangeEmail }
+            />
+          </label>
+          <label htmlFor="senha" className="form-label" id="label-s">
+            Senha:
+            <input
+              type="password"
+              id="senha"
+              className="form-control form-control-lg"
+              name="senha"
+              value={ senha }
+              onChange={ this.handerChangeSenha }
+            />
+          </label>
+        </form>
+        <div>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ validar }
+              onClick={ () => { addEmailState(email); } }
+              className="btn btn-outline-light btn-lg margin-1"
+              id="bto"
+            >
+              Entrar
+            </button>
+          </Link>
         </div>
       </div>
     );
